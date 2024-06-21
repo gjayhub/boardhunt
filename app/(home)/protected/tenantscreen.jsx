@@ -13,6 +13,8 @@ import { supabase } from "@/utils/supabase";
 import useStore from "@/hooks/useStore";
 import Toast from "react-native-toast-message";
 import { FontAwesome } from "@expo/vector-icons";
+import LoadingItem from "@/components/loading";
+import useAdmin from "@/hooks/useAdmin";
 
 const Homepage = () => {
   const {
@@ -20,31 +22,36 @@ const Homepage = () => {
     previewSuggestion,
     searchQuery,
     setSearchQuery,
-
     searchBoarding,
     userPreference,
+    setPreviewBoarding,
+    previewBoarding,
   } = useStore();
+  const { getBoardingAdmin } = useAdmin();
   const [refresh, setRefresh] = useState(false);
   const [loading, setLoading] = useState(false);
   useEffect(() => {
-    setLoading(true);
     const getPreview = async () => {
-      await getSuggestions(userPreference);
+      setLoading(true);
+      const { transformedBoarding } = await getBoardingAdmin(userPreference);
+      setPreviewBoarding(transformedBoarding);
+      setLoading(false);
     };
     getPreview();
-    setLoading(false);
   }, [userPreference, refresh]);
 
   const handleSearch = async () => {
     if (searchQuery && searchQuery !== "") {
+      const encodedQuery = encodeURIComponent(searchQuery);
       const { searchResult } = await searchBoarding(searchQuery);
-      router.push(`searches/${searchQuery}`);
+      router.push(`searches/${encodedQuery}`);
     }
   };
 
   return (
     <View style={styles.container}>
       <Toast />
+
       <View style={styles.searchContainer}>
         <Searchbar
           style={styles.searchInput}
@@ -74,16 +81,16 @@ const Homepage = () => {
             paddingEnd: 40,
           }}
         >
-          <Text style={styles.listHeader}>Suggestions</Text>
+          <Text style={styles.listHeader}>Boarding list</Text>
           <TouchableOpacity onPress={() => setRefresh((prev) => !prev)}>
             <FontAwesome name="refresh" size={24} color="black" />
           </TouchableOpacity>
         </View>
 
         {loading ? (
-          <ActivityIndicator size="large" />
+          <LoadingItem />
         ) : (
-          <BoardingList boarding={previewSuggestion} />
+          <BoardingList boarding={previewBoarding} />
         )}
       </View>
     </View>

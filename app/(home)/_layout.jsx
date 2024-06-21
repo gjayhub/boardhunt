@@ -95,26 +95,6 @@ const CustomDrawerContent = (props) => {
         <>
           <DrawerItem
             icon={({ color, size }) => (
-              <Feather
-                name="list"
-                size={size}
-                color={pathname == "/preference" ? "#eee" : "#422F29"}
-              />
-            )}
-            label={"Preference"}
-            labelStyle={[
-              styles.navItemLabel,
-              { color: pathname == "/preference" ? "#eee" : "#422F29" },
-            ]}
-            style={{
-              backgroundColor: pathname == "/preference" ? "#422F29" : "#eee",
-            }}
-            onPress={() => {
-              router.push("preference");
-            }}
-          />
-          <DrawerItem
-            icon={({ color, size }) => (
               <AntDesign
                 name="staro"
                 size={size}
@@ -326,18 +306,6 @@ export default function DrawerLayout() {
         options={{
           headerShown: true,
           title: "My List",
-          headerStyle: { backgroundColor: "#FDE49E" },
-          headerTitleStyle: styles.headerTitle,
-          headerTitleAlign: "center",
-        }}
-      />
-
-      <Drawer.Screen
-        name="preference"
-        options={{
-          headerShown: true,
-          // Set the presentation mode to modal for our modal route.
-          title: "Preference",
           headerStyle: { backgroundColor: "#FDE49E" },
           headerTitleStyle: styles.headerTitle,
           headerTitleAlign: "center",

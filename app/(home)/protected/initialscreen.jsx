@@ -13,12 +13,13 @@ import {
 import { Button, Searchbar } from "react-native-paper";
 import Toast from "react-native-toast-message";
 import { FontAwesome } from "@expo/vector-icons";
+import LoadingItem from "@/components/loading";
 export default function Home() {
   const [searchQuery, setSearchQuery] = useState("");
   const [refresh, setRefresh] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const {
-    loading,
     previewBoarding,
     getBoarding,
     userProfile,
@@ -29,19 +30,27 @@ export default function Home() {
 
   useEffect(() => {
     const getPreview = async () => {
+      setLoading(true);
       if (userProfile.role === "admin") {
         const { transformedBoarding } = await getBoardingAdmin();
         setPreviewBoarding(transformedBoarding);
+        setLoading(false);
       } else {
-        getBoarding(userProfile.id);
+        await getBoarding(userProfile.id);
+        setLoading(false);
       }
     };
     getPreview();
   }, [userProfile, refresh]);
+
   const handleSearch = async () => {
-    await searchBoarding(searchQuery);
-    router.push(`searches/${searchQuery}`);
+    if (searchQuery && searchQuery !== "") {
+      const encodedQuery = encodeURIComponent(searchQuery);
+      const { searchResult } = await searchBoarding(searchQuery);
+      router.push(`searches/${encodedQuery}`);
+    }
   };
+
   return (
     <View style={styles.container}>
       <Toast />
@@ -82,7 +91,7 @@ export default function Home() {
           </TouchableOpacity>
         </View>
         {loading ? (
-          <ActivityIndicator size="large" />
+          <LoadingItem />
         ) : (
           <BoardingList boarding={previewBoarding} />
         )}

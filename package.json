@@ -32,9 +32,9 @@
     "expo-splash-screen": "~0.27.4",
     "expo-status-bar": "~1.12.1",
     "expo-system-ui": "~3.0.4",
+    "expo-updates": "~0.25.14",
     "expo-web-browser": "~13.0.3",
     "nativewind": "^2.0.11",
-    "openai": "^4.47.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-native": "0.74.1",
@@ -49,8 +49,7 @@
     "react-native-toast-message": "^2.2.0",
     "react-native-url-polyfill": "^2.0.0",
     "react-native-web": "~0.19.10",
-    "zustand": "^4.5.2",
-    "expo-updates": "~0.25.14"
+    "zustand": "^4.5.2"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",

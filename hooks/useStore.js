@@ -224,7 +224,8 @@ const useStore = create((set) => ({
       ...item,
       ratings: item.ratings.map((ratingObj) => ratingObj.rating),
     }));
-    set({ searchResult: transformedData });
+    set({ searchResult: transformedData, searchQuery: search });
+
     return { transformedData };
   },
   searchWithFilter: async (search, range) => {

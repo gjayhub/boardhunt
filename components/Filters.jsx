@@ -84,11 +84,11 @@ const tags = [
 
 export function Filters({ text, modalRef }) {
   const priceRanges = [
-    { lowest: 1000, highest: 2000 },
-    { lowest: 2000, highest: 3000 },
-    { lowest: 3000, highest: 4000 },
-    { lowest: 5000, highest: 6000 },
-    { lowest: 7000, highest: "Above" },
+    { lowest: 0, highest: 1999 },
+    { lowest: 2000, highest: 3999 },
+    { lowest: 4000, highest: 6999 },
+    { lowest: 7000, highest: 9999 },
+    { lowest: 10000, highest: "Above" },
   ];
 
   const [selectedLocation, setSelectedLocation] = useState(null);
@@ -152,6 +152,7 @@ export function Filters({ text, modalRef }) {
     }
 
     const { transformedData, error } = await searchWithFilter(newSearch, range);
+    console.log(range);
     setSearchResult(transformedData);
     modalRef.current?.close?.();
   };

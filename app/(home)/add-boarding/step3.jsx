@@ -14,6 +14,7 @@ import { ActivityIndicator, Button } from "react-native-paper";
 import { supabase, supabaseAdmin } from "@/utils/supabase";
 import useStore from "@/hooks/useStore";
 import useAdmin from "@/hooks/useAdmin";
+import LoadingItem from "@/components/loading";
 
 const Step3 = () => {
   const [loading, setLoading] = useState(false);
@@ -121,12 +122,7 @@ const Step3 = () => {
 
     setLoading(false);
   };
-  if (loading)
-    return (
-      <View style={{ justifyContent: "center", alignItems: "center", flex: 1 }}>
-        <ActivityIndicator animating={true} size="large" />
-      </View>
-    );
+  if (loading) return <LoadingItem />;
 
   return (
     <View style={styles.container}>

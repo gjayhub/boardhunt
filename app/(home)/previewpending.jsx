@@ -32,7 +32,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { BlurView } from "expo-blur";
 import { useNavigation } from "expo-router";
 import useStore from "@/hooks/useStore";
-import OpenAI from "openai";
+
 import LoadingItem from "@/components/loading";
 import { supabase } from "@/utils/supabase";
 import Toast from "react-native-toast-message";

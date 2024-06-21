@@ -47,12 +47,7 @@ export default function RootLayout() {
       <Stack.Screen name="(home)" options={{ headerShown: false }} />
       {/* <Stack.Screen name="(home)/(tabs)" options={{ headerShown: false }} /> */}
       <Stack.Screen name="+not-found" />
-      <Stack.Screen
-        name="modal"
-        options={{
-          presentation: "modal",
-        }}
-      />
+
       <Stack.Screen
         name="auth/login"
         options={{

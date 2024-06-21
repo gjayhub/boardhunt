@@ -1,4 +1,10 @@
-import React, { useState, useCallback, useMemo, useRef } from "react";
+import React, {
+  useState,
+  useCallback,
+  useMemo,
+  useRef,
+  useEffect,
+} from "react";
 import { Text, View, StyleSheet } from "react-native";
 import { Button, Searchbar } from "react-native-paper";
 import { useLocalSearchParams } from "expo-router";
@@ -15,7 +21,7 @@ import useStore from "@/hooks/useStore";
 
 const SearchResult = () => {
   const { search } = useLocalSearchParams();
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState(decodeURIComponent(search));
   const {
     searchResult,
     searchWithFilter,
@@ -34,9 +40,9 @@ const SearchResult = () => {
     console.log("handleSheetChanges", index);
   }, []);
   const handleSearch = async () => {
-    console.log(filters);
     if (searchQuery && searchQuery !== "") {
       const { transformedData } = await searchWithFilter(searchQuery);
+      setSearchTerm(searchQuery);
     }
   };
 
@@ -75,7 +81,9 @@ const SearchResult = () => {
             </BottomSheetView>
           </BottomSheetModal>
           <View style={{ flex: 1 }}>
-            <Text style={styles.resultsTitle}>Search results: {search}</Text>
+            <Text style={styles.resultsTitle}>
+              Search results: {searchTerm}
+            </Text>
             {searchResult?.length == 0 ? (
               <View
                 style={{
